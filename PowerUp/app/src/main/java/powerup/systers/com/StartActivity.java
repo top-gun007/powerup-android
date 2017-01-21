@@ -12,12 +12,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 public class StartActivity extends Activity {
 
     private SharedPreferences preferences;
     private boolean hasPreviouslyStarted;
+    ImageButton startButton, aboutButton, newUserButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class StartActivity extends Activity {
         setContentView(R.layout.activity_main);
         preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         hasPreviouslyStarted = preferences.getBoolean(getString(R.string.preferences_has_previously_started), false);
-        Button newUserButton = (Button) findViewById(R.id.newUserButtonFirstPage);
+        newUserButton = (ImageButton) findViewById(R.id.newUserButtonFirstPage);
         newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +34,7 @@ public class StartActivity extends Activity {
             }
         });
 
-        Button startButton = (Button) findViewById(R.id.startButtonMain);
+        startButton = (ImageButton) findViewById(R.id.startButtonMain);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +47,7 @@ public class StartActivity extends Activity {
             }
         });
 
-        Button aboutButton = (Button) findViewById(R.id.aboutButtonMain);
+        aboutButton = (ImageButton) findViewById(R.id.aboutButtonMain);
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,5 +61,9 @@ public class StartActivity extends Activity {
     protected void onResume() {
         super.onResume();
         hasPreviouslyStarted = preferences.getBoolean(getString(R.string.preferences_has_previously_started), false);
+        if (hasPreviouslyStarted) {
+            startButton.setBackgroundResource(R.drawable.endingscreen6);
+        }
+
     }
 }
